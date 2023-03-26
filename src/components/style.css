@@ -1,0 +1,257 @@
+:root{
+    --background: rgb(34,36,42);
+    --box-color: rgb(20,22,25);
+    --box-details: rgb(20,22,25);
+    --data: rgb(52, 53, 54);
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+
+  }
+  .main{
+    background-color: var(--background);
+    color: white;
+  }
+a{
+    text-decoration: none;
+}
+.parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+}
+.description{
+    margin-top: 30px;
+}
+.button-container{
+    text-align: right;
+    padding:1rem
+}
+.connect-wallet-button{
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    color: white;
+    background-color: cadetblue;
+    font-weight: 700;
+    transition: all 500ms ease
+}
+.connect-wallet-button:hover{
+  background-color: rgb(52, 87, 88);
+}
+.leftbox ,.rightbox{
+height: 35rem;
+width:35rem ;
+border: 1px rgb(56, 56, 56)  solid;
+margin: 1rem;
+border-radius: 20px;
+box-shadow: 1px 1px 1px 1px rgb(59, 56, 56) inset ;
+padding: 0.5rem;
+}
+
+
+.scrolling-icons{
+    white-space: nowrap;
+    overflow-x: scroll;
+    padding: 5rem 1rem;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 20%;
+
+    
+  }
+  .main-icon{
+    position: relative;
+    z-index: 1;
+    height: 100px;
+    background-color: rgb(1, 31, 50);
+    border-radius: 15px;
+    position: relative;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+    padding: 5px;
+  }
+  .icon {
+    display: inline-block;
+    margin: 10px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--box-details);
+    animation: scroll 5s linear infinite;
+    animation-timing-function: linear;
+    padding: 15px;
+    border-radius: 10px;
+    overflow:scroll;
+    transition: transform 1s ease;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  
+  @keyframes scroll {
+    0% {
+        transform: translate3d(0, 0,0);
+    }
+    100% {
+        transform: translate3d(-300px, 0, 0);
+    }
+  }
+
+  .features{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 3rem;
+    color: rgb(0, 238, 255);
+  }
+
+
+/* left box  */
+.select-crypto{
+  width: 95%;
+  background-color: var(--box-details);
+  color: white;
+  height: 2.5rem;
+  border-radius:10px ;
+  padding: 0 1rem;
+  border: none;
+  margin-bottom: 1rem;
+}
+.option{
+  padding: 1rem;
+  height: 2rem;
+}
+.connect-wallet-button-long{
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(26, 74, 75);
+  font-weight: 700;
+  width: 90%;
+  transition: all 500ms ease
+}
+.connect-wallet-button-long:hover{
+background-color:rgb(74, 151, 152);;
+}
+.input-box{
+  height: 10rem;
+  vertical-align: center;
+  text-align: left;
+  width: 95%;
+  margin: 0 2.5%;
+  padding: 2rem;
+  background-color: var(--box-color);
+  border-radius: 10px;
+
+}
+.label{
+  color: gray;
+  margin-bottom: 1rem;
+}
+.number-input{
+  height: 3rem;
+  font-size: 30px;
+  width: 50%;
+  color: white;
+  background-color: var(--box-color);
+  border: none;
+  outline: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+  @media screen and (max-width: 1024px) {
+   .parent{
+    display: flex;
+       flex-direction: column;
+    }
+    .leftbox, .rightbox{
+        width: 90%;
+    }
+}
+.select-token{
+  width: 50%;
+  background-color: var(--background);
+  color: white;
+  height: 2.5rem;
+  border-radius:10px ;
+  padding: 0 1rem;
+  border: none;
+  margin-bottom: 1rem;
+  height: 3rem;
+}
+.calculate-button{
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(45, 192, 5);
+  font-weight: 700;
+  width: 90%;
+  transition: all 500ms ease;
+  margin: 2rem ;
+}
+.calculate-button:hover{
+  background-color:rgb(24, 109, 0) ;
+}
+
+
+
+/* data  */
+.main-data-container{
+  display: flex;
+  flex-direction: column;
+}
+.data-container-headline{
+  padding: 1rem;
+  text-align: left;
+}
+.info{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+
+  background-color: var(--data);
+  margin: 5px;
+  border-radius: 10px;
+  padding: 10px;
+  transition: all 500ms ease
+
+  
+}
+.info:hover{
+  background-color: var(--box-details);
+}
+.data-piece-right{
+  text-align: right;
+padding-right: 1rem;
+height: 1.5rem;
+}
+.data-piece-left{
+  text-align: left;
+  padding-left:1rem ;
+  height: 1.5rem;
+  padding-bottom: 0!;
+}
+
+@media screen and (max-width:600px) {
+  .parent{
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    
+  }  
+  .leftbox, .rightbox{
+    width: 90%;
+    height: fit-content;
+}
+}
+
+
