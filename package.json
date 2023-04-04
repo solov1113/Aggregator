@@ -3,7 +3,6 @@
 	"sideEffects": false,
 	"version": "1.0.0",
 	"private": true,
-	"homepage": "https://swap.defillama.com",
 	"license": "GPL-3.0-or-later",
 	"scripts": {
 		"analyze": "ANALYZE=true yarn build",
