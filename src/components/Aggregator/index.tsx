@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAccount, useFeeData, useNetwork, useQueryClient, useSigner, useSwitchNetwork, useToken } from 'wagmi';
 import { useAddRecentTransaction, useConnectModal } from '@rainbow-me/rainbowkit';
 import { ethers } from 'ethers';
+import { Slider, InputNumber } from 'antd';
 import BigNumber from 'bignumber.js';
 import { ArrowRight } from 'react-feather';
 import styled from 'styled-components';
@@ -21,7 +22,8 @@ import {
 	ToastId,
 	Alert,
 	AlertIcon,
-	CircularProgress
+	CircularProgress,
+	background
 } from '@chakra-ui/react';
 import ReactSelect from '~/components/MultiSelect';
 import FAQs from '~/components/FAQs';
@@ -285,6 +287,16 @@ const ConnectButtonWrapper = styled.div`
 
 const chains = getAllChains();
 
+const marks = {
+	2: <span style={{ color: 'white' }}>2</span>,
+	25: <span style={{ color: 'white' }}>25</span>,
+	50: <span style={{ color: 'white' }}>50</span>,
+	75: <span style={{ color: 'white' }}>75</span>,
+	100: <span style={{ color: 'white' }}>100</span>,
+	125: <span style={{ color: 'white' }}>125</span>,
+	150: <span style={{ color: 'white' }}>150</span>
+};
+
 export function AggregatorContainer({ tokenlist }) {
 	// wallet stuff
 	const { data: signer } = useSigner();
@@ -295,10 +307,16 @@ export function AggregatorContainer({ tokenlist }) {
 	const addRecentTransaction = useAddRecentTransaction();
 	const wagmiClient = useQueryClient();
 
+	//Slider
+	const [editing, setEditing] = useState({
+		blur: 0
+	});
+
 	// swap input fields and selected aggregator states
 	const [aggregator, setAggregator] = useState(null);
 	const [isPrivacyEnabled, setIsPrivacyEnabled] = useLocalStorage('llamaswap-isprivacyenabled', false);
 	const [amount, setAmount] = useState<number | string>('10');
+	const [selectedOption, setSelectedOption] = useState(null);
 	const [slippage, setSlippage] = useState<string>('0.5');
 
 	// post swap states
@@ -375,6 +393,10 @@ export function AggregatorContainer({ tokenlist }) {
 	const amountWithDecimals = BigNumber(debouncedAmount && debouncedAmount !== '' ? debouncedAmount : '0')
 		.times(BigNumber(10).pow(finalSelectedFromToken?.decimals || 18))
 		.toFixed(0);
+
+	const handleOptionChange = (event) => {
+		setSelectedOption(event.target.value);
+	};
 
 	// saved tokens list
 	const savedTokens = useGetSavedTokens(selectedChain?.id);
@@ -795,28 +817,28 @@ export function AggregatorContainer({ tokenlist }) {
 
 	return (
 		<Wrapper>
-			<Heading>Meta-Aggregator</Heading>
+			<p>Meta-Aggregator</p>
 
-			<Text fontSize="1rem" fontWeight="500">
+			<p>
 				This product is still in beta. If you run into any issue please let us know in our{' '}
-				<a
+				{/* <a
 					style={{ textDecoration: 'underline' }}
 					target={'_blank'}
 					rel="noreferrer noopener"
-					href="https://discord.swap.defillama.com/"
+					href="https://github.com/phantom0109"
 				>
-					discord server
-				</a>
-			</Text>
+					link goes here
+				</a> */}
+			</p>
 
 			<BodyWrapper>
 				<Body showRoutes={finalSelectedFromToken && finalSelectedToToken ? true : false}>
 					<div>
 						<FormHeader>
 							<Flex>
-								<Box>Chain</Box>
+								<Box>Select Tokens</Box>
 								<Spacer />
-								<Tooltip content="Redirect requests through the DefiLlama Server to hide your IP address">
+								{/* <Tooltip content="Redirect requests through the DefiLlama Server to hide your IP address">
 									<FormControl display="flex" alignItems="baseline" gap="6px" justifyContent={'center'}>
 										<FormLabel htmlFor="privacy-switch" margin={0} fontSize="14px" color="gray.400">
 											Hide IP
@@ -827,17 +849,22 @@ export function AggregatorContainer({ tokenlist }) {
 											isChecked={isPrivacyEnabled}
 										/>
 									</FormControl>
-								</Tooltip>
+								</Tooltip> */}
 							</Flex>
 						</FormHeader>
+						<TokenSelect
+							tokens={tokensInChain.filter(({ address }) => address !== finalSelectedToToken?.address)}
+							token={finalSelectedFromToken}
+							onClick={onFromTokenChange}
+							selectedChain={selectedChain}
+						/>
 
-						<ReactSelect options={chains} value={selectedChain} onChange={onChainChange} />
+						{/* <ReactSelect options={chains} value={selectedChain} onChange={onChainChange} /> */}
 					</div>
 
 					<SelectWrapper>
-						<FormHeader>Select Tokens</FormHeader>
-						<TokenSelectBody>
-							<TokenSelect
+						{/* <TokenSelectBody>
+						<TokenSelect
 								tokens={tokensInChain.filter(({ address }) => address !== finalSelectedToToken?.address)}
 								token={finalSelectedFromToken}
 								onClick={onFromTokenChange}
@@ -864,13 +891,61 @@ export function AggregatorContainer({ tokenlist }) {
 							<TokenSelect
 								tokens={tokensInChain.filter(({ address }) => address !== finalSelectedFromToken?.address)}
 								token={finalSelectedToToken}
-								onClick={onToTokenChange}
+								// onClick={onToTokenChange}
 								selectedChain={selectedChain}
 							/>
-						</TokenSelectBody>
+
+						</TokenSelectBody> */}
+						<Flex as="label" flexDir="column">
+							<Text as="span" fontWeight="bold" fontSize="1rem" ml="4px">
+								Amount In {finalSelectedFromToken?.symbol}
+							</Text>
+							<TokenInput setAmount={setAmount} amount={amount} onMaxClick={onMaxClick} />
+
+							{balance.isSuccess && balance.data && !Number.isNaN(Number(balance.data.formatted)) ? (
+								<Button
+									textDecor="underline"
+									bg="none"
+									p={0}
+									fontWeight="400"
+									fontSize="0.875rem"
+									ml="auto"
+									h="initial"
+									mt="8px"
+									onClick={onMaxClick}
+									_hover={{ bg: 'none' }}
+									_focus={{ bg: 'none' }}
+								>
+									Balance: {(+balance.data.formatted).toFixed(3)}
+								</Button>
+							) : (
+								<Box h="16.8px" mt="8px"></Box>
+							)}
+						</Flex>
+						<select
+							value={selectedOption}
+							onChange={handleOptionChange}
+							style={{
+								width: '30%',
+								background: '#0006',
+								color: 'white',
+								height: '2.5rem',
+								borderRadius: '10px',
+								padding: '0rem 1rem',
+								border: 'none',
+								marginBottom: '1rem'
+							}}
+						>
+							<option className="option" value="Etherium">
+								Long
+							</option>
+							<option className="option" value="BSC ">
+								Short
+							</option>
+						</select>
 					</SelectWrapper>
 
-					<Flex as="label" flexDir="column">
+					{/* <Flex as="label" flexDir="column">
 						<Text as="span" fontWeight="bold" fontSize="1rem" ml="4px">
 							Amount In {finalSelectedFromToken?.symbol}
 						</Text>
@@ -895,7 +970,29 @@ export function AggregatorContainer({ tokenlist }) {
 						) : (
 							<Box h="16.8px" mt="8px"></Box>
 						)}
+					</Flex> */}
+					<Flex>
+						<Text as="span" fontWeight="bold" fontSize="1rem" ml="4px">
+							Leverage(2x-150x)
+						</Text>
+						<Spacer />
+						<InputNumber
+							style={{ background: '' }}
+							min={0}
+							value={typeof editing.blur === 'number' ? editing.blur : 0}
+							onChange={(newBlur) => setEditing({ ...editing, blur: newBlur })}
+						/>
+						
 					</Flex>
+
+					<Slider
+						marks={marks}
+						trackStyle={{ backgroundColor: '#77911' }}
+						value={typeof editing.blur === 'number' ? editing.blur : 0}
+						max={150}
+						min={2}
+						onChange={(newblur) => setEditing({ ...editing, blur: newblur })}
+					/>
 
 					<Slippage slippage={slippage} setSlippage={setSlippage} />
 
@@ -913,7 +1010,7 @@ export function AggregatorContainer({ tokenlist }) {
 						slippage={slippage}
 					/>
 
-					{aggregator === 'CowSwap' ? (
+					{/* {aggregator === 'CowSwap' ? (
 						<>
 							{finalSelectedFromToken.value === ethers.constants.AddressZero && Number(slippage) < 2 ? (
 								<Alert status="warning" borderRadius="0.375rem" py="8px">
@@ -926,8 +1023,10 @@ export function AggregatorContainer({ tokenlist }) {
 								CowSwap orders are fill-or-kill, so they may not execute if price moves quickly against you.
 							</Alert>
 						</>
-					) : null}
-
+					) : null} */}
+					<Button colorScheme={'yellow'} onClick={onToTokenChange}>
+						Calculate
+					</Button>
 					<SwapWrapper>
 						{!isConnected ? (
 							<Button colorScheme={'messenger'} onClick={openConnectModal}>

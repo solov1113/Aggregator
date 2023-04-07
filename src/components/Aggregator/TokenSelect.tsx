@@ -62,6 +62,7 @@ const Row = ({ chain, token, onClick }) => {
 				)}
 			</Text>
 
+
 			{token.balanceUSD ? (
 				<div style={{ marginRight: 0, marginLeft: 'auto' }}>
 					{(token.amount / 10 ** token.decimals).toFixed(3)}
