@@ -37,7 +37,7 @@ interface ILayoutProps {
 
 export default function Layout({ title, children, ...props }: ILayoutProps) {
 	return (
-		<>
+		<div style={{background: "#E9EDF0", marginTop: "-30px", marginBottom: "-30px"}}>
 			<Head>
 				<title>{title}</title>
 			</Head>
@@ -48,6 +48,6 @@ export default function Layout({ title, children, ...props }: ILayoutProps) {
 					<Center {...props}>{children}</Center>
 				</PageWrapper>
 			</ThemeProvider>
-		</>
+		</div>
 	);
 }

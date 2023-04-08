@@ -79,7 +79,7 @@ export function PriceImpact({
 	return (
 		<>
 			<Accordion allowToggle style={{ margin: '0 4px' }}>
-				<AccordionItem borderColor="#373944" minH="2.5rem">
+				{/* <AccordionItem borderColor="#373944" minH="2.5rem">
 					<AccordionButton onClick={() => setPriceOrder((prev) => prev * -1)}>
 						{priceOrder === 1 ? (
 							<Box as="span" flex="1" textAlign="left" fontSize="0.875rem">{`1 ${
@@ -150,15 +150,15 @@ export function PriceImpact({
 							</span>
 						</Text>
 					</AccordionPanel>
-				</AccordionItem>
+				</AccordionItem> */}
 			</Accordion>
 
-			{!isLoading && !isPriceImpactNotKnown && selectedRoutesPriceImpact >= PRICE_IMPACT_WARNING_THRESHOLD ? (
+			{/* {!isLoading && !isPriceImpactNotKnown && selectedRoutesPriceImpact >= PRICE_IMPACT_WARNING_THRESHOLD ? (
 				<Alert status="warning" borderRadius="0.375rem" py="8px">
 					<AlertIcon />
 					High price impact! More than {selectedRoutesPriceImpact.toFixed(2)}% drop.
 				</Alert>
-			) : null}
+			) : null} */}
 		</>
 	);
 }

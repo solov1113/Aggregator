@@ -53,11 +53,11 @@ const Wrapper = styled.span`
 const customStyles = {
 	control: (provided) => ({
 		...provided,
-		background: 'var(--background)',
+		background: 'white',
 		padding: '4px 2px',
 		borderRadius: '12px',
 		border: 'none',
-		color: 'var(--color)',
+		color: 'black',
 		boxShadow:
 			'0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04)',
 		margin: 0,
@@ -65,11 +65,11 @@ const customStyles = {
 	}),
 	input: (provided) => ({
 		...provided,
-		color: 'var(--color)'
+		color: 'black'
 	}),
 	menu: (provided) => ({
 		...provided,
-		background: 'var(--menu-background)',
+		background: 'black',
 		zIndex: 10
 	}),
 	option: (provided, state) => ({
@@ -84,7 +84,7 @@ const customStyles = {
 	}),
 	multiValueLabel: (styles) => ({
 		...styles,
-		color: 'var(--color)'
+		color: 'black'
 	}),
 	placeholder: (provided) => ({
 		...provided,
@@ -92,7 +92,7 @@ const customStyles = {
 	}),
 	singleValue: (provided, state) => ({
 		...provided,
-		color: 'var(--color)'
+		color: 'black'
 	})
 };
 

@@ -63,7 +63,7 @@ const RoutesPreview = () => {
 	return (
 		<Flex pt="30px" flexDir="column" justifyContent="space-around" h="100%">
 			<Header>
-				<MainIcon>{LlamaIcon}</MainIcon>
+				{/* <MainIcon>{LlamaIcon}</MainIcon> */}
 
 				<IconsBody>
 					{[...AggIcons, ...AggIcons].map((Icon, i) => (

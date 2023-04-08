@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import Tooltip from '~/components/Tooltip';
 import { useTokenApprove } from '../Aggregator/hooks';
@@ -66,6 +67,7 @@ const Route = ({
 		netOut && Number.isFinite(Number(netOut)) ? `$${formattedNum(netOut.toFixed(1), false, true)}` : null;
 	const isGasNotKnown = gasUsd === 'Unknown' || Number.isNaN(Number(gasUsd));
 	const txGas = isGasNotKnown ? '' : '$' + formattedNum(gasUsd);
+	let setTextcolor = '';
 
 	return (
 		<RouteWrapper
@@ -73,17 +75,18 @@ const Route = ({
 			className={selected ? 'RouteWrapper is-selected' : 'RouteWrapper'}
 			selected={selected}
 			best={index === 0}
+			
 		>
-			<RouteRow>
-				<Flex alignItems="baseline">
-					<Text fontSize={19} fontWeight={700} color={'#FAFAFA'}>
+			<RouteRow >
+				<Flex alignItems="baseline" >
+					<Text fontSize={19} fontWeight={700} color={'#181B20'}>
 						{formattedNum(amount)}{' '}
 					</Text>
-					<Text fontSize={19} fontWeight={600} marginLeft={'4px'} color={'#ccc'}>
+					<Text fontSize={19} fontWeight={600} marginLeft={'4px'} color={'#181B20'}>
 						{toToken?.symbol}
 					</Text>
 				</Flex>
-				<Text fontWeight={500} fontSize={16} color={'#FAFAFA'}>
+				<Text fontWeight={500} fontSize={16} color={'#181B20'}>
 					<Flex as="span" alignItems="center" gap="8px">
 						{index === 0 ? (
 							<Text as="span" color="#059669" fontSize={14} fontWeight={700}>
@@ -99,7 +102,7 @@ const Route = ({
 			</RouteRow>
 
 			<RouteRow>
-				<Flex className='mobile-column' as="span" columnGap="4px" display="flex" color="gray.400" fontWeight={500}>
+				<Flex className='mobile-column' as="span" columnGap="4px" display="flex" color="#181B20" fontWeight={500}>
 					<span>{`≈ ${afterFees} `}</span>
 					{isGasNotKnown && !isFetchingGasPrice ? (
 						<Flex as="span" gap="4px" alignItems="center" color="#d97706" className="inline-alert">
@@ -116,11 +119,11 @@ const Route = ({
 					</Tooltip>
 				) : null}
 
-				<Text display="flex" columnGap="6px" color={'gray.400'} fontWeight={500} ml="auto">
-					<Text display="flex" className='mobile-column mobile-flexend' alignItems="center" gap="4px" color="gray.400">
+				<Text display="flex" columnGap="6px" color={'#181B20'} fontWeight={500} ml="auto">
+					<Text display="flex" className='mobile-column mobile-flexend' alignItems="center" gap="4px" color="#181B20">
 						{name === 'CowSwap' ? (
 							<Tooltip content="Gas is taken from output amount">
-								<Text as="span" display="flex" alignItems="center" gap="4px" color="gray.400" fontWeight={500}>
+								<Text as="span" display="flex" alignItems="center" gap="4px" color="#181B20" fontWeight={500}>
 									{isGasNotKnown ? null : <GasIcon />}
 									{txGas}
 								</Text>
@@ -154,12 +157,12 @@ const RouteWrapper = styled.div<{ selected: boolean; best: boolean }>`
 	grid-row-gap: 4px;
 	margin-top: 16px;
 	&.is-selected {
-		border-color: rgb(31 114 229);
-		background-color: rgb(3 11 23);
+		background-color: #381CB8;
+		color: white;
 	}
 
 	background-color: ${({ theme, selected }) =>
-		theme.mode === 'dark' ? (selected ? ' #161616;' : '#2d3039;') : selected ? ' #bec1c7;' : ' #dde3f3;'};
+		theme.mode === 'dark' ? (selected ? ' #E9EDF0;' : '#E9EDF0;') : selected ? ' #bec1c7;' : ' #dde3f3;'};
 	border: ${({ theme }) => (theme.mode === 'dark' ? '1px solid #373944;' : '1px solid #c6cae0;')};
 	padding: 7px 15px 9px;
 	border-radius: 8px;
@@ -181,9 +184,6 @@ const RouteWrapper = styled.div<{ selected: boolean; best: boolean }>`
 	.secondary-data {
 		opacity: 0;
 		transition: opacity 0.2s linear;
-	}
-	&:hover {
-		background-color: ${({ theme }) => (theme.mode === 'dark' ? '#161616;' : '#b7b7b7;;')};
 	}
 	&:hover,
 	&.is-selected,

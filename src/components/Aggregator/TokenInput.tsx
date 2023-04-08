@@ -11,9 +11,7 @@ const InputElem = styled.input`
 	font-weight: 500;
 	font-family: inherit;
 	-webkit-appearance: none;
-	color: ${({ theme }) => (theme.mode !== 'dark' ? '#000' : '#fff')};
-	border: ${({ theme }) => (theme.mode === 'dark' ? '1px solid #232323;' : '1px solid #cdd9ed;')};
-	background: ${({ theme }) => (theme.mode === 'dark' ? 'rgba(0,0,0,.4)' : '#fff')};
+	background: ${({ theme }) => (theme.mode === 'dark' ? 'rgba(0,0,0,0)' : '#fff')};
 	transition: border 0.3s ease;
 	&::placeholder {
 		color: #cbd1dc;
@@ -33,7 +31,7 @@ const InputWrapper = styled.div`
 	display: flex;
 	width: 100%;
 	margin-top: 4px;
-
+	text-color: "black";
 	& > input,
 	button {
 		white-space: nowrap;
