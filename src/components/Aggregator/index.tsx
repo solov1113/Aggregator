@@ -291,13 +291,16 @@ const styles = {
 		...provided,
 		color: state.isSelected ? "white" : "black",
 		backgroundColor:  state.isSelected ? state.data.color : "white",
-		// width: "212px"
+	}),
+	control: (provided, state) => ({
+		...provided,
+		width: 212
 	}),
 	singleValue: (provided) => ({
 		...provided,
 		// color: state.data.color,
 		marginLeft: "2px",
-		width: "212px"
+		// width: "212px"
 	})
 }
 
